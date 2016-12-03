@@ -11,6 +11,7 @@ A toy 'operating system' used for teaching purposes.
 
 # Dependencies
 To build the project, you need :
+
 | Program           | Debian package |
 | ----------------- | -------------- |
 |  gcc              |    gcc         |
