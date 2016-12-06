@@ -1,9 +1,9 @@
 ASFLAGS=-32
-GCC_COMPILE_OPTS=-m32 -ffreestanding -nostdinc
+GCC_COMPILE_OPTS=-m32 -O3 -ffreestanding -nostdinc -fno-asynchronous-unwind-tables -g0 
 GCC_LINK_OPTS=-T link.ld -nostdlib
 
-
-K_OBJECTS=boot.o kernel.o
+C_SRCS=utils.c screen.c kernel.c
+K_OBJECTS=boot.o utils.o screen.o kernel.o
 KERNEL=myos.bin
 
 all: $(KERNEL)
@@ -24,3 +24,11 @@ clean:
 
 test: $(KERNEL)
 	qemu-system-i386 -kernel $(KERNEL)
+
+depend: .depend
+
+.depend: $(C_SRCS)
+	@rm -f ./.depend
+	gcc $(GCC_COMPILE_OPTS) -MM $^ -MF  ./.depend
+
+include .depend
